@@ -655,9 +655,9 @@ with st.sidebar:
             subproceso = st.selectbox("Subproceso", subprocesos, index=0)
 
     # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
-    st.header("📍 Emergencia por Dirección")
-with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
-    direccion = st.text_input(
+st.header("📍 Emergencia por Dirección")
+    with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
+      direccion = st.text_input(
         label="Buscar dirección:",
         placeholder="Ej: Carrera 15 #32-41, Bogotá",
         key="direccion_input"  # Usamos una clave diferente para evitar conflictos
