@@ -15,7 +15,6 @@ import base64
 from io import BytesIO
 import tempfile
 import unicodedata
-from streamlit_searchbox import st_searchbox
 
 # --- Imports para Vizzu ---
 from streamlit_vizzu import VizzuChart
@@ -658,6 +657,7 @@ with st.sidebar:
     # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
     st.header("📍 Emergencia por Dirección")
     with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
+      direccion = st.text_input(
         direccion = st_searchbox(
             lambda searchterm: [loc.address for loc in 
                              Nominatim(user_agent="autocomplete").geocode(
