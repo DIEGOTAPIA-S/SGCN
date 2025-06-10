@@ -1,0 +1,12 @@
+streamlit
+pandas
+folium
+streamlit-folium
+shapely
+fpdf2
+matplotlib
+geopy
+streamlit-searchbox
+openpyxl
+streamlit-vizzu==0.5.1
+ipyvizzu
