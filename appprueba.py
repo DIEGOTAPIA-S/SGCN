@@ -638,11 +638,13 @@ with st.sidebar:
     archivo = st.file_uploader("📄 Subir CSV de colaboradores", type="csv")
     
     # Inicializamos las variables de filtro
+ # Inicializamos las variables de filtro
     ciudad, criticidad, subproceso = None, None, None
     if archivo:
         if 'df' not in st.session_state or st.session_state.get('uploaded_filename') != archivo.name:
-            st.session_state.df = load_data(archivo)
-            st.session_state.uploaded_filename = archivo.name
+            with st.spinner('Procesando archivo, por favor espere...'):
+                st.session_state.df = load_data(archivo)
+                st.session_state.uploaded_filename = archivo.name
 
         if 'df' in st.session_state and st.session_state.df is not None:
             df = st.session_state.df
@@ -655,21 +657,8 @@ with st.sidebar:
             subproceso = st.selectbox("Subproceso", subprocesos, index=0)
 
     # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
-st.header("📍 Emergencia por Dirección")
+    st.header("📍 Emergencia por Dirección")
     with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
-      direccion = st.text_input(
-        label="Buscar dirección:",
-        placeholder="Ej: Carrera 15 #32-41, Bogotá",
-        key="direccion_input"  # Usamos una clave diferente para evitar conflictos
-    )
-        
-        # Botón para encontrar y marcar en el mapa
-   # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
-       st.header("📍 Emergencia por Dirección")
-   st.header("📍 Emergencia por Dirección")
-    with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
-        
-        # La línea clave es la siguiente, nos aseguramos de que esté completa:
         direccion = st.text_input(
             label="Buscar dirección:",
             placeholder="Ej: Carrera 15 #32-41, Bogotá",
@@ -682,7 +671,6 @@ st.header("📍 Emergencia por Dirección")
                 with st.spinner("Buscando..."):
                     location = buscar_direccion_colombia(direccion)
                     if location:
-                        # Guardamos la ubicación encontrada en la sesión
                         st.session_state.emergencia_location = {
                             "coords": [location.latitude, location.longitude],
                             "address": location.address
@@ -691,22 +679,18 @@ st.header("📍 Emergencia por Dirección")
                     else:
                         st.error("Dirección no encontrada")
 
-    # Solo se muestra si ya se encontró una ubicación.
+    # --- SECCIÓN PARA ANALIZAR LA DIRECCIÓN ENCONTRADA ---
     if 'emergencia_location' in st.session_state:
         st.info(f"📍 **Ubicación Marcada:**\n{st.session_state.emergencia_location['address']}")
         
-        # Botón para analizar la zona de la ubicación encontrada
         if st.button("🚨 Analizar Emergencia en esta Ubicación"):
             if 'df' in st.session_state and st.session_state.df is not None:
-                # Crear un punto y un área circular (buffer) alrededor
                 punto_emergencia = Point(st.session_state.emergencia_location['coords'][1], st.session_state.emergencia_location['coords'][0])
-                # El radio está en grados, 0.005 es aprox. 500 metros. Puedes ajustarlo.
-                zona_circular = punto_emergencia.buffer(0.005) 
+                zona_circular = punto_emergencia.buffer(0.005)
                 
                 from shapely.geometry import mapping
                 zona_para_reporte = {'geometry': mapping(zona_circular)}
                 
-                # Generar reporte usando la misma función de antes
                 df_filtrado = aplicar_filtros(st.session_state.df, ciudad, criticidad, subproceso)
                 reporte = generar_reporte(zona_para_reporte, df_filtrado, SEDES_FIJAS)
                 
@@ -715,7 +699,6 @@ st.header("📍 Emergencia por Dirección")
                     st.success(f"Análisis completo. {reporte['total_colaboradores']} colaboradores afectados.")
             else:
                 st.warning("Por favor, cargue el archivo CSV de colaboradores primero.")
-
 # Mapa principal
 m = crear_mapa_base(tile_provider=tile_provider)
 
