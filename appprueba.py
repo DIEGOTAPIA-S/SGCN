@@ -665,7 +665,7 @@ st.header("📍 Emergencia por Dirección")
         
         # Botón para encontrar y marcar en el mapa
    # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
-    st.header("📍 Emergencia por Dirección")
+       st.header("📍 Emergencia por Dirección")
     with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
         
         # La línea clave es la siguiente, nos aseguramos de que esté completa:
