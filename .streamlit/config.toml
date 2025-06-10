@@ -1,0 +1,15 @@
+[theme]
+# Color principal para elementos interactivos
+primaryColor="#005A9C"  # Un azul corporativo
+
+# Color de fondo de la aplicación principal
+backgroundColor="#F0F2F6" # Un gris muy claro
+
+# Color de fondo de la barra lateral
+secondaryBackgroundColor="#FFFFFF" # Blanco
+
+# Color del texto principal
+textColor="#1E1E1E"
+
+# Fuente a usar (sans serif es una buena opción por defecto)
+font="sans serif"
