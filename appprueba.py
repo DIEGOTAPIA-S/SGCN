@@ -656,20 +656,12 @@ with st.sidebar:
 
     # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
     st.header("📍 Emergencia por Dirección")
-    with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
-      direccion = st.text_input(
-        direccion = st_searchbox(
-            lambda searchterm: [loc.address for loc in 
-                             Nominatim(user_agent="autocomplete").geocode(
-                                 f"{searchterm}, Colombia", 
-                                 exactly_one=False, 
-                                 limit=5
-                             )] if searchterm and len(searchterm) > 3 else [],
-            label="Buscar dirección:",
-            placeholder="Ej: Carrera 15 #32-41, Bogotá",
-            key="direccion_autocomplete"
-        )
-      )
+with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
+    direccion = st.text_input(
+        label="Buscar dirección:",
+        placeholder="Ej: Carrera 15 #32-41, Bogotá",
+        key="direccion_input"  # Usamos una clave diferente para evitar conflictos
+    )
         
         # Botón para encontrar y marcar en el mapa
       if st.button("🗺️ Encontrar en el mapa"):
