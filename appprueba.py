@@ -669,6 +669,7 @@ with st.sidebar:
             placeholder="Ej: Carrera 15 #32-41, Bogotá",
             key="direccion_autocomplete"
         )
+      )
         
         # Botón para encontrar y marcar en el mapa
         if st.button("🗺️ Encontrar en el mapa"):
