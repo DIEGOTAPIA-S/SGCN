@@ -672,7 +672,7 @@ with st.sidebar:
       )
         
         # Botón para encontrar y marcar en el mapa
-        if st.button("🗺️ Encontrar en el mapa"):
+          if st.button("🗺️ Encontrar en el mapa"):
             if direccion:
                 with st.spinner("Buscando..."):
                     location = buscar_direccion_colombia(direccion)
