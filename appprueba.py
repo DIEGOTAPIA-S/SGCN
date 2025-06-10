@@ -666,6 +666,7 @@ st.header("📍 Emergencia por Dirección")
         # Botón para encontrar y marcar en el mapa
    # --- SECCIÓN PARA BUSCAR DIRECCIÓN ---
        st.header("📍 Emergencia por Dirección")
+   st.header("📍 Emergencia por Dirección")
     with st.expander("BUSCAR DIRECCIÓN EN COLOMBIA", expanded=True):
         
         # La línea clave es la siguiente, nos aseguramos de que esté completa:
@@ -689,8 +690,7 @@ st.header("📍 Emergencia por Dirección")
                         st.success(f"✅ Ubicación encontrada!")
                     else:
                         st.error("Dirección no encontrada")
-    # --- SECCIÓN PARA ANALIZAR LA DIRECCIÓN ENCONTRADA ---
-    # Este bloque está FUERA del st.expander, pero DENTRO de la sidebar.
+
     # Solo se muestra si ya se encontró una ubicación.
     if 'emergencia_location' in st.session_state:
         st.info(f"📍 **Ubicación Marcada:**\n{st.session_state.emergencia_location['address']}")
